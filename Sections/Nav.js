@@ -4,8 +4,8 @@ import { BsCodeSlash } from "react-icons/bs";
 
 const Nav = () => {
   return (
-    <nav className=" bg-gray-300 mx-auto ">
-      <div className="max-w-7xl mx-auto flex flex-row">
+    <nav className="relative z-10 max-w-screen-lg xl:max-w-screen-xl mx-auto">
+      <div className="border-b border-gray-200 py-2 flex items-center justify-between mb-16 sm:mb-20 -mx-4 px-4 sm:mx-0 sm:px-0">
         <div className=" flex flex-1 flex-row  py-5 w-full items-center">
           <div className="px-3">
             <Link href="/">
