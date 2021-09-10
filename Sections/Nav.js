@@ -23,7 +23,7 @@ const Nav = () => {
         </div>
         <div className=" flex flex-1  py-3 justify-end w-full items-center gap-x-2">
           <Link href="/forms/createFormPost">
-            <a className="px-3 py-1 border-2 border-blue-600 bg-gray-100  rounded-md   font-bold ">
+            <a className="px-3 py-1 border-2 border-blue-600   rounded-md   font-bold ">
               New Post
             </a>
           </Link>

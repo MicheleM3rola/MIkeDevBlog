@@ -2,10 +2,8 @@ import React from "react";
 import Head from "next/head";
 import Nav from "./Nav";
 import Footer from "./Footer";
-import { useRouter } from "next/router";
 
 function Layout({ children }) {
-  const router = useRouter();
   return (
     <div className="max-w-screen-lg xl:max-w-screen-xl mx-auto bg-white">
       <Head>
@@ -21,7 +19,7 @@ function Layout({ children }) {
         />
         <meta charSet="utf-8" />
       </Head>
-      {router.pathname !== "/login/login" ? <Nav /> : null}
+      <Nav />
 
       <main>{children}</main>
       <Footer />
