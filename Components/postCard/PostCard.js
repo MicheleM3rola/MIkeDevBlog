@@ -30,8 +30,10 @@ const PostCard = () => {
         </div>
       </div>
       <div className="flex flex-row items-center justify-between pt-4">
-        <div className="flex flex-row items-center justify-between w-full">
-          <button>Edit</button>
+        <div className="flex flex-row items-center justify-start space-x-2 w-full">
+          <Link href="/forms/createFormPost">
+            <a>Edit</a>
+          </Link>
           <button>Delete</button>
         </div>
       </div>

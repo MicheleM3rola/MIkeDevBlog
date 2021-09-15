@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@heroicons/react": "^1.0.4",
     "@prisma/client": "^2.30.3",
     "@tailwindcss/typography": "^0.4.1",
     "next": "latest",
