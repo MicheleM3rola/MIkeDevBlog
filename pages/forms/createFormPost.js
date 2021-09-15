@@ -8,6 +8,7 @@ const CreateFormPost = () => {
         <div className="w-full px-4 pt-5">
           <Editor />
         </div>
+        Hello
       </div>
     </div>
   );
