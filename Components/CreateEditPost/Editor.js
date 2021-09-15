@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import { useDebounce } from "use-debounce";
 import {
   PencilIcon,
   EyeIcon,
@@ -32,6 +33,19 @@ const Editor = ({
   const [title, setTitle] = useState(initialData?.title ?? "");
   const [content, setContent] = useState(initialData?.content ?? "");
   const [activeTab, setActiveTab] = useState(0);
+
+  const [debouncedTitle] = useDebounce(title, debounceDelay);
+  const [debouncedContent] = useDebounce(content, debounceDelay);
+
+  const initialRendering = useRef(true);
+
+  useEffect(() => {
+    if (initialRendering.current) {
+      initialRendering.current = false;
+      return;
+    }
+    onChange(debouncedTitle, debouncedContent);
+  }, [debouncedTitle, debouncedContent]);
 
   console.log(title);
   return (
@@ -97,7 +111,7 @@ const Editor = ({
             className="w-full min-h-screen resize-none bg-transparent focus:outline-none text-xl leading-snug disabled:cursor-not-allowed"
           />
         ) : (
-          <article className="min-h-screen">
+          <article className="min-h-screen prose sm:prose-lg lg:prose-xl max-w-none">
             {content ? (
               <ReactMarkdown children={content} components={MDComponents} />
             ) : (

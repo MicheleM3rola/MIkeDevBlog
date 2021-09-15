@@ -12,10 +12,22 @@ module.exports = {
         abel: "'Abel',sans-serif",
         montserrat: "'Montserrat',sans-serif",
       },
+      typography: (theme) => ({
+        DEFAULT: {
+          css: {
+            a: {
+              color: theme("colors.blue.600"),
+              "&:hover": {
+                color: theme("colors.blue.700"),
+              },
+            },
+          },
+        },
+      }),
     },
   },
   variants: {
     extend: {},
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/typography")],
 };
