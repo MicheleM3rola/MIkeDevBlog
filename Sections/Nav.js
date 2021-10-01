@@ -1,6 +1,11 @@
 import React from "react";
 import Link from "next/link";
 import { BsCodeSlash } from "react-icons/bs";
+import { SignedIn, SignedOut } from "@clerk/clerk-react";
+import {
+  SignOutButton,
+  SignInButton,
+} from "../Components/SignInAndSignOutBtn/SignInAndSignOutBtn";
 
 const Nav = () => {
   return (
@@ -22,14 +27,17 @@ const Nav = () => {
           </div>
         </div>
         <div className=" flex flex-1  py-3 justify-end w-full items-center gap-x-2">
-          <Link href="/forms/createFormPost">
-            <a className="px-3 py-1 border-2 border-blue-600   rounded-md   font-bold ">
-              New Post
-            </a>
-          </Link>
-          <Link href="/login/login">
-            <a className="px-3 font-bold text-blue-500 ">Admin</a>
-          </Link>
+          <SignedIn>
+            <Link href="/forms/createFormPost">
+              <a className="px-3 py-1 border-2 border-blue-600   rounded-md   font-bold ">
+                New Post
+              </a>
+            </Link>
+            <SignOutButton />
+          </SignedIn>
+          <SignedOut>
+            <SignInButton />
+          </SignedOut>
         </div>
       </div>
     </nav>

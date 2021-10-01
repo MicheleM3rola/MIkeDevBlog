@@ -1,11 +1,21 @@
 import React from "react";
-import useSWR from "swr";
 import PostCard from "../postCard/PostCard";
-
-const PostList = () => {
+import dateFormat from "dateformat";
+const PostList = ({ allPost }) => {
   return (
     <div className="col-span-5 font-montserrat ">
-      <PostCard />
+      {allPost.map(({ title, content, id, createdAt }) => {
+        const datePost = dateFormat(createdAt, "mmmm dS, yyyy");
+        return (
+          <PostCard
+            title={title}
+            content={content}
+            key={id}
+            date={datePost}
+            id={id}
+          />
+        );
+      })}
     </div>
   );
 };

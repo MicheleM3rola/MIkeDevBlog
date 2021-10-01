@@ -5,8 +5,9 @@ import {
   EyeIcon,
   CloudDownloadIcon,
   TrashIcon,
+  RefreshIcon,
 } from "@heroicons/react/outline";
-import ReactMarkdown from "react-markdown";
+import ReactMarkdown from "react-markdown/react-markdown.min";
 import * as MDComponents from "./MDComponents";
 
 const tabs = [
@@ -24,14 +25,17 @@ const Editor = ({
   initialData = null,
   showDeleteButton = false,
   showPublishButton = false,
+  showUpdateButton = false,
   disabled = false,
   debounceDelay = 500,
   onChange = () => null,
+  onUpdate = () => null,
   onPublish = () => null,
   onDelete = () => null,
 }) => {
   const [title, setTitle] = useState(initialData?.title ?? "");
   const [content, setContent] = useState(initialData?.content ?? "");
+  const [category, setCategory] = useState(initialData?.category?.name ?? "");
   const [activeTab, setActiveTab] = useState(0);
 
   const [debouncedTitle] = useDebounce(title, debounceDelay);
@@ -47,7 +51,6 @@ const Editor = ({
     onChange(debouncedTitle, debouncedContent);
   }, [debouncedTitle, debouncedContent]);
 
-  console.log(title);
   return (
     <div className="w-full max-w-screen-lg mx-auto">
       <textarea
@@ -57,6 +60,14 @@ const Editor = ({
         placeholder="Title...."
         disabled={disabled}
         className="w-full text-3xl font-bold leading-snug bg-transparent outline-none appearance-none resize-none disabled:cursor-not-allowed "
+      />
+      <textarea
+        value={category}
+        onChange={(e) => setCategory(e.target.value)}
+        maxLength={150}
+        placeholder="Tech..."
+        disabled={disabled}
+        className="w-full text-xl font-bold leading-snug bg-transparent outline-none appearance-none resize-none disabled:cursor-not-allowed "
       />
       <div className="mt-6 flex justify-center sm:justify-between items-center px-4 py-2 space-x-6 rounded bg-gray-100 border border-gray-300 text-gray-700 sticky top-0 ">
         <div className="flex items-center space-x-4">
@@ -78,9 +89,19 @@ const Editor = ({
         </div>
         {/** Publish & delete actions */}
         <div className="flex items-center space-x-4">
+          {showUpdateButton ? (
+            <button
+              onClick={() => onUpdate(title, content, category, initialData.id)}
+              disabled={disabled}
+              className="flex items-center space-x-1 transition-colors rounded-md focus:outline-none hover:text-blue-600 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:text-current"
+            >
+              <RefreshIcon className="w-6 h-6 flex-shrink-0" />
+              <span className="hidden sm:inline-block">Update</span>
+            </button>
+          ) : null}
           {showPublishButton ? (
             <button
-              onClick={() => onPublish(title, content)}
+              onClick={() => onPublish(title, content, category)}
               disabled={disabled}
               className="flex items-center space-x-1 transition-colors rounded-md focus:outline-none hover:text-blue-600 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:text-current"
             >
@@ -90,12 +111,12 @@ const Editor = ({
           ) : null}
           {showDeleteButton ? (
             <button
-              onClick={onDelete}
+              onClick={() => onDelete(initialData.id)}
               disabled={disabled}
               className="flex items-center space-x-1 transition-colors rounded-md focus:outline-none hover:text-blue-600 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:text-current"
             >
               <TrashIcon className="w-6 h-6 flex-shrink-0" />
-              <span className="hidden sm:inline-block">Publish</span>
+              <span className="hidden sm:inline-block">Delete</span>
             </button>
           ) : null}
         </div>
@@ -113,7 +134,7 @@ const Editor = ({
         ) : (
           <article className="min-h-screen prose sm:prose-lg lg:prose-xl max-w-none">
             {content ? (
-              <ReactMarkdown children={content} components={MDComponents} />
+              <ReactMarkdown components={MDComponents}>{content}</ReactMarkdown>
             ) : (
               <p>Nothing to preview yet....</p>
             )}
