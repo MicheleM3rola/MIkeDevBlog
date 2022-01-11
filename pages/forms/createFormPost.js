@@ -6,7 +6,7 @@ const CreateFormPost = () => {
   // Page to create the post with the editor component
   const router = useRouter();
 
-  const handleOnPublish = async (title, content, category) => {
+  const handleOnPublish = async (title, content, category, image) => {
     try {
       const {
         data: { id },
@@ -14,6 +14,7 @@ const CreateFormPost = () => {
         title,
         content,
         category,
+        image,
       });
       router.push(`/Post/${id}`);
     } catch (error) {

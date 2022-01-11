@@ -1,10 +1,27 @@
 import React from "react";
 import prisma from "../../lib/prisma";
+import { UserHOC } from "../../Components/User/User";
 
 const Post = (singlePost) => {
-  // component to read the actual bost by id
+  // component to read the actual post by id
+  console.log(singlePost);
+  return (
+    <div className="flex flex-col justify-items-center items-start xl:min-h-screen xl:w-9/12 mx-auto">
+      <div>
+        <h1 className="text-6xl font-bold mb-2">
+          {singlePost.title}
+          <span className="text-blue-500 text-sm ml-3">
+            {singlePost.category.name}
+          </span>
+        </h1>
 
-  return <div></div>;
+        <UserHOC />
+      </div>
+      <div>
+        <p>{singlePost.content}</p>
+      </div>
+    </div>
+  );
 };
 
 export default Post;
@@ -27,34 +44,3 @@ export const getServerSideProps = async ({ params }) => {
     props: singlePost,
   };
 };
-
-{
-  /*export async function getStaticPaths() {
-  const dataPaths = await prisma.post.findMany();
-  const paths = dataPaths.map((post) => ({
-    params: { id: post.id },
-  }));
-
-  return { paths, fallback: false };
-}
-
-export async function getStaticProps({ params }) {
-  try {
-    const data = await prisma.post.findUnique({
-      where: {
-        id: Number(params.id),
-      },
-    });
-    const singlePost = JSON.stringify(data);
-
-    return {
-      props: { singlePost }, // will be passed to the page component as props
-    };
-  } catch (error) {
-    return {
-      notFound: true,
-    };
-  }
-}
-*/
-}

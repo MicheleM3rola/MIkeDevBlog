@@ -9,6 +9,7 @@ import {
 } from "@heroicons/react/outline";
 import ReactMarkdown from "react-markdown/react-markdown.min";
 import * as MDComponents from "./MDComponents";
+import axios from "axios";
 
 const tabs = [
   {
@@ -36,6 +37,7 @@ const Editor = ({
   const [title, setTitle] = useState(initialData?.title ?? "");
   const [content, setContent] = useState(initialData?.content ?? "");
   const [category, setCategory] = useState(initialData?.category?.name ?? "");
+  const [image, setImage] = useState(initialData?.image ?? "");
   const [activeTab, setActiveTab] = useState(0);
 
   const [debouncedTitle] = useDebounce(title, debounceDelay);
@@ -50,6 +52,42 @@ const Editor = ({
     }
     onChange(debouncedTitle, debouncedContent);
   }, [debouncedTitle, debouncedContent]);
+
+  /// Upload photo snippet Adam
+
+  const handleUpload = async (e) => {
+    let file = e.target.files[0];
+    // Split the filename to get the name and type
+    let fileParts = e.target.files[0].name.split(".");
+    let fileName = fileParts[0];
+    let fileType = fileParts[1];
+    await axios
+      .post("/api/awsImageUrl/postImage", {
+        fileName: fileName,
+        fileType: fileType,
+      })
+      .then((res) => {
+        const signedRequest = res.data.signedRequest;
+        const url = res.data.url;
+        setImage(url);
+
+        var options = {
+          headers: {
+            "Content-Type": fileType,
+            "Access-Control-Allow-Origin": "*",
+          },
+        };
+        axios
+          .put(signedRequest, file, options)
+
+          .catch((error) => {
+            console.log(error);
+          });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <div className="w-full max-w-screen-lg mx-auto">
@@ -69,6 +107,19 @@ const Editor = ({
         disabled={disabled}
         className="w-full text-xl font-bold leading-snug bg-transparent outline-none appearance-none resize-none disabled:cursor-not-allowed "
       />
+      <div className="">
+        <input
+          type="file"
+          accept="image/png, image/jpeg,image/jpg"
+          className=""
+          onChange={handleUpload}
+        />
+        <button type="submit">Set Image</button>
+      </div>
+      <div>
+        <img src={image} alt="test" />
+      </div>
+
       <div className="mt-6 flex justify-center sm:justify-between items-center px-4 py-2 space-x-6 rounded bg-gray-100 border border-gray-300 text-gray-700 sticky top-0 ">
         <div className="flex items-center space-x-4">
           {tabs.map(({ text, icon: Icon }, i) => (
@@ -126,13 +177,14 @@ const Editor = ({
         {activeTab === 0 ? (
           <textarea
             value={content}
+            rows="20"
             onChange={(e) => setContent(e.target.value)}
             placeholder="Tell your story..."
             disabled={disabled}
-            className="w-full min-h-screen resize-none bg-transparent focus:outline-none text-xl leading-snug disabled:cursor-not-allowed"
+            className="w-full  resize-none bg-transparent focus:outline-none text-xl leading-snug disabled:cursor-not-allowed"
           />
         ) : (
-          <article className="min-h-screen prose sm:prose-lg lg:prose-xl max-w-none">
+          <article className=" prose sm:prose-lg lg:prose-xl max-w-none">
             {content ? (
               <ReactMarkdown components={MDComponents}>{content}</ReactMarkdown>
             ) : (

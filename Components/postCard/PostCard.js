@@ -1,8 +1,24 @@
 import React from "react";
 import Link from "next/link";
+import axios from "axios";
+import { useRouter } from "next/router";
 import { UserHOC } from "../User/User";
+import { SignedIn } from "@clerk/nextjs";
 
 const PostCard = ({ title, content, date, id }) => {
+  const router = useRouter();
+
+  const deleteBtn = async (id) => {
+    if (window.confirm("Do you really want to delete this post?")) {
+      try {
+        await axios.delete(`/api/deletePost/${id}`);
+        router.push("/");
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
   return (
     <div className="bg-white w-full dark:bg-brand-dark-grey-800 dark:border-brand-grey-800 border-b py-5 px-4 md:px-5">
       <UserHOC />
@@ -14,22 +30,30 @@ const PostCard = ({ title, content, date, id }) => {
               {title}
             </a>
           </Link>
-          <p className="mb-2 text-base font-medium text-brand-grey-600 dark:text-brand-grey-400">
+          <p className="mb-2 text-xs font-medium text-brand-grey-600 dark:text-brand-grey-400">
             {date}
           </p>
           <p className="max-w-full min-w-full mb-2 text-lg leading-snug tracking-tight break-words text-brand-grey-700 dark:text-brand-grey-400">
-            {content}
+            {content.slice(0, 250)}
           </p>
         </div>
       </div>
-      <div className="flex flex-row items-center justify-between pt-4">
-        <div className="flex flex-row items-center justify-start space-x-2 w-full">
-          <Link href={`/editForm/${id}`}>
-            <a>Edit</a>
-          </Link>
-          <button>Delete</button>
+      <SignedIn>
+        <div className="flex flex-row items-center justify-between pt-4">
+          <div className="flex flex-row items-center justify-start space-x-2 w-full">
+            <Link href={`/editForm/${id}`}>
+              <a>Edit</a>
+            </Link>
+            <button
+              onClick={() => {
+                deleteBtn(id);
+              }}
+            >
+              Delete
+            </button>
+          </div>
         </div>
-      </div>
+      </SignedIn>
     </div>
   );
 };
