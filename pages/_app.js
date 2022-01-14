@@ -1,6 +1,6 @@
 import "tailwindcss/tailwind.css";
 import Layout from "../Sections/Layout";
-
+import "../styles.css";
 import {
   ClerkProvider,
   SignedIn,

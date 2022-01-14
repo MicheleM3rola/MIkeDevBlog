@@ -41,7 +41,7 @@ export default async function handler(req, res) {
       }
       const returnData = {
         signedRequest: data,
-        url: `https://${process.env.AWS_BUCKET_NAME_MIKEBLOG}.s3.ap-southeast-2.amazonaws.com/${fileName}.${fileType}`,
+        url: `https://${process.env.AWS_BUCKET_NAME_MIKEBLOG}.s3.ap-southeast-2.amazonaws.com/${fileName}`,
       };
 
       return res.status(200).json(returnData);

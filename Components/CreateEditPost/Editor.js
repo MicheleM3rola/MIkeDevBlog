@@ -68,17 +68,19 @@ const Editor = ({
       })
       .then((res) => {
         const signedRequest = res.data.signedRequest;
-        const url = res.data.url;
-        setImage(url);
+        //const url = res.data.url;
+        //setImage(url);
 
         var options = {
           headers: {
-            "Content-Type": fileType,
             "Access-Control-Allow-Origin": "*",
           },
         };
         axios
           .put(signedRequest, file, options)
+          .then((r) => {
+            console.log(r);
+          })
 
           .catch((error) => {
             console.log(error);
@@ -87,8 +89,23 @@ const Editor = ({
       .catch((error) => {
         console.log(error);
       });
-  };
 
+    setTimeout(async () => {
+      await axios
+        .post("/api/awsImageUrl/postImage", {
+          fileName: fileName,
+          fileType: fileType,
+        })
+        .then((res) => {
+          const url = res.data.url;
+          setImage(url);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }, 2000);
+  };
+  console.log(image);
   return (
     <div className="w-full max-w-screen-lg mx-auto">
       <textarea
@@ -114,7 +131,6 @@ const Editor = ({
           className=""
           onChange={handleUpload}
         />
-        <button type="submit">Set Image</button>
       </div>
       <div>
         <img src={image} alt="test" />
@@ -142,7 +158,9 @@ const Editor = ({
         <div className="flex items-center space-x-4">
           {showUpdateButton ? (
             <button
-              onClick={() => onUpdate(title, content, category, initialData.id)}
+              onClick={() =>
+                onUpdate(title, content, category, image, initialData.id)
+              }
               disabled={disabled}
               className="flex items-center space-x-1 transition-colors rounded-md focus:outline-none hover:text-blue-600 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:text-current"
             >
@@ -152,7 +170,7 @@ const Editor = ({
           ) : null}
           {showPublishButton ? (
             <button
-              onClick={() => onPublish(title, content, category)}
+              onClick={() => onPublish(title, content, category, image)}
               disabled={disabled}
               className="flex items-center space-x-1 transition-colors rounded-md focus:outline-none hover:text-blue-600 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:text-current"
             >

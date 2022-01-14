@@ -5,7 +5,7 @@ import Footer from "./Footer";
 
 function Layout({ children }) {
   return (
-    <div className=" max-w-screen-lg xl:max-w-screen-xl mx-auto bg-white">
+    <div className=" h-screen max-w-screen-lg xl:max-w-screen-xl mx-auto bg-dilate-color flex flex-col place-content-between">
       <Head>
         <title>Michele Dev Blog</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />

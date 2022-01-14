@@ -15,15 +15,17 @@ const Nav = () => {
           <div className="px-3">
             <Link href="/">
               <a>
-                <BsCodeSlash className="text-5xl text-blue-600" />
+                <BsCodeSlash className="text-5xl text-dilate-green" />
               </a>
             </Link>
           </div>
           <div>
             <Link href="/">
-              <a className="text-2xl font-montserrat">Mike Dev Blog</a>
+              <a className="text-3xl font-montserrat text-white font-bold ">
+                DeBLOG
+              </a>
             </Link>
-            <p>Tech Posts and Tutorial everyday</p>
+            <p className="text-white">Tech Posts and Tutorial everyday</p>
           </div>
         </div>
         <div className=" flex flex-1  py-3 justify-end w-full items-center gap-x-2">

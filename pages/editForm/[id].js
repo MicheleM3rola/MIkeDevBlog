@@ -9,12 +9,13 @@ const EditPost = (postToEdit) => {
 
   const router = useRouter();
 
-  const handleOnUpdate = async (title, content, category, id) => {
+  const handleOnUpdate = async (title, content, category, image, id) => {
     try {
       await axios.patch(`/api/updatePost/${id}`, {
         title,
         content,
         category,
+        image,
       });
       router.push("/");
     } catch (error) {

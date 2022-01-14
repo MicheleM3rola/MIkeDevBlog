@@ -16,6 +16,7 @@ const Post = (singlePost) => {
         </h1>
 
         <UserHOC />
+        <img src={singlePost.image} alt="post Image" />
       </div>
       <div>
         <p>{singlePost.content}</p>
