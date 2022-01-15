@@ -5,7 +5,7 @@ import Footer from "./Footer";
 
 function Layout({ children }) {
   return (
-    <div className=" h-screen max-w-screen-lg xl:max-w-screen-xl mx-auto bg-dilate-color flex flex-col place-content-between">
+    <div className=" h-screen  bg-dilate-color flex flex-col place-content-between">
       <Head>
         <title>Michele Dev Blog</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
@@ -19,10 +19,14 @@ function Layout({ children }) {
         />
         <meta charSet="utf-8" />
       </Head>
-      <Nav />
+      <div className="flex flex-col justify-center px-8 ">
+        <Nav />
+      </div>
 
-      <main>{children}</main>
-      <Footer />
+      <main className="flex flex-col justify-center px-8 bg-dilate-color">
+        {children}
+        <Footer />
+      </main>
     </div>
   );
 }
