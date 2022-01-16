@@ -6,21 +6,22 @@ const Post = (singlePost) => {
   // component to read the actual post by id
 
   return (
-    <div className="flex flex-col justify-start items-start  xl:w-9/12 mx-auto">
-      <div className="w-full flex flex-col  items-center">
+    <div className="flex flex-col   xl:w-9/12 mx-auto">
+      <div className="w-full flex flex-col items-center">
         <h1 className="text-6xl font-bold mb-2  text-white">
           {singlePost.title}
           <span className="text-dilate-green text-sm ml-3">
             {singlePost.category.name}
           </span>
         </h1>
-
-        <img src={singlePost.image} className="mt-5" alt="post Image" />
+        <div className="mt-5 h-96">
+          <img src={singlePost.image} className="h-full" alt="post Image" />
+        </div>
+        <div className="text-white mt-12 w-3/5 ">
+          <p>{singlePost.content}</p>
+        </div>
+        <UserHOC />
       </div>
-      <div className="text-white ">
-        <p>{singlePost.content}</p>
-      </div>
-      <UserHOC />
     </div>
   );
 };

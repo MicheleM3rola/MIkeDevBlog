@@ -124,16 +124,15 @@ const Editor = ({
         disabled={disabled}
         className="w-full text-xl text-white font-bold leading-snug bg-transparent outline-none appearance-none resize-none disabled:cursor-not-allowed "
       />
-      <div className="">
+      <div className=" flex flex-row justify-start content-center">
         <input
           type="file"
           accept="image/png, image/jpeg,image/jpg"
-          className=""
           onChange={handleUpload}
         />
-      </div>
-      <div>
-        <img src={image} alt="test" />
+        <div className="h-24">
+          <img src={image} className="h-full" alt="test" />
+        </div>
       </div>
 
       <div className="mt-6 flex justify-center sm:justify-between items-center px-4 py-2 space-x-6 rounded bg-gray-100 border border-gray-300 text-gray-700 sticky top-0 ">
