@@ -5,7 +5,7 @@ export const SignOutButton = () => {
   const { signOut } = useClerk();
   return (
     <button
-      className=" px-5 py-2 shadow-md  rounded-md   font-bold "
+      className=" px-5 py-2 shadow-md  rounded-md   font-bold text-white"
       onClick={() => signOut()}
     >
       Sign Out
@@ -17,7 +17,7 @@ export const SignInButton = () => {
   const { openSignIn } = useClerk();
   return (
     <button
-      className="px-5 py-2 shadow-md   rounded-md   font-bold "
+      className="px-5 py-2 shadow-md   rounded-md   font-bold text-white"
       onClick={() => openSignIn()}
     >
       Sign In

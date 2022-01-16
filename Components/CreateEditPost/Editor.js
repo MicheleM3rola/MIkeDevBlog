@@ -114,7 +114,7 @@ const Editor = ({
         maxLength={150}
         placeholder="Title...."
         disabled={disabled}
-        className="w-full text-3xl font-bold leading-snug bg-transparent outline-none appearance-none resize-none disabled:cursor-not-allowed "
+        className="w-full text-3xl font-bold leading-snug bg-transparent outline-none appearance-none resize-none disabled:cursor-not-allowed text-white"
       />
       <textarea
         value={category}
@@ -122,7 +122,7 @@ const Editor = ({
         maxLength={150}
         placeholder="Tech..."
         disabled={disabled}
-        className="w-full text-xl font-bold leading-snug bg-transparent outline-none appearance-none resize-none disabled:cursor-not-allowed "
+        className="w-full text-xl text-white font-bold leading-snug bg-transparent outline-none appearance-none resize-none disabled:cursor-not-allowed "
       />
       <div className="">
         <input
@@ -199,14 +199,14 @@ const Editor = ({
             onChange={(e) => setContent(e.target.value)}
             placeholder="Tell your story..."
             disabled={disabled}
-            className="w-full  resize-none bg-transparent focus:outline-none text-xl leading-snug disabled:cursor-not-allowed"
+            className="w-full text-white  resize-none bg-transparent focus:outline-none text-xl leading-snug disabled:cursor-not-allowed"
           />
         ) : (
-          <article className=" prose sm:prose-lg lg:prose-xl max-w-none">
+          <article className=" prose sm:prose-lg lg:prose-xl max-w-none text-white">
             {content ? (
               <ReactMarkdown components={MDComponents}>{content}</ReactMarkdown>
             ) : (
-              <p>Nothing to preview yet....</p>
+              <p className="text-white">Nothing to preview yet....</p>
             )}
           </article>
         )}

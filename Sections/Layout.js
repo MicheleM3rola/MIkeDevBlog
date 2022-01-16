@@ -5,7 +5,7 @@ import Footer from "./Footer";
 
 function Layout({ children }) {
   return (
-    <div className=" h-screen  bg-dilate-color flex flex-col place-content-between">
+    <div className=" h-screen  bg-dilate-color flex flex-col ">
       <Head>
         <title>Michele Dev Blog</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />

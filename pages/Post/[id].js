@@ -4,23 +4,23 @@ import { UserHOC } from "../../Components/User/User";
 
 const Post = (singlePost) => {
   // component to read the actual post by id
-  console.log(singlePost);
+
   return (
-    <div className="flex flex-col justify-items-center items-start xl:min-h-screen xl:w-9/12 mx-auto">
-      <div>
-        <h1 className="text-6xl font-bold mb-2">
+    <div className="flex flex-col justify-start items-start  xl:w-9/12 mx-auto">
+      <div className="w-full flex flex-col  items-center">
+        <h1 className="text-6xl font-bold mb-2  text-white">
           {singlePost.title}
-          <span className="text-blue-500 text-sm ml-3">
+          <span className="text-dilate-green text-sm ml-3">
             {singlePost.category.name}
           </span>
         </h1>
 
-        <UserHOC />
-        <img src={singlePost.image} alt="post Image" />
+        <img src={singlePost.image} className="mt-5" alt="post Image" />
       </div>
-      <div>
+      <div className="text-white ">
         <p>{singlePost.content}</p>
       </div>
+      <UserHOC />
     </div>
   );
 };

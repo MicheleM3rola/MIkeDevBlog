@@ -20,10 +20,10 @@ const PostCard = ({ title, content, date, id }) => {
   };
 
   return (
-    <div className="bg-white w-full dark:bg-brand-dark-grey-800 dark:border-brand-grey-800 border-b py-5 px-4 md:px-5">
+    <div className="bg-white w-full dark:bg-brand-dark-grey-800 dark:border-brand-grey-800 border-b py-5 px-4 md:px-5 rounded-lg mb-3">
       <UserHOC />
 
-      <div className="flex flex-row flex-wrap flex-grow-0">
+      <div className="flex flex-row flex-wrap flex-grow-0 ">
         <div className="flex-auto w-full pr-0 xl:w-auto xl:flex-1 xl:pr-5">
           <Link href={`/Post/${id}`}>
             <a className="mb-1 text-3xl font-semibold leading-tight tracking-tight text-brand-black dark:text-brand-grey-100">
