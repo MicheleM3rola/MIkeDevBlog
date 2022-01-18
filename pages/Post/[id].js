@@ -20,7 +20,9 @@ const Post = (singlePost) => {
         <div className="text-white mt-12 w-3/5 ">
           <p>{singlePost.content}</p>
         </div>
-        <UserHOC />
+        <div className="w-3/5 mt-10 flex flex-row justify-start">
+          <UserHOC />
+        </div>
       </div>
     </div>
   );

@@ -35,7 +35,7 @@ const PostCard = ({ title, content, date, id }) => {
               {date}
             </p>
             <p className="max-w-full min-w-full mb-2 text-lg leading-snug tracking-tight break-words text-brand-grey-700 dark:text-brand-grey-400">
-              {content.slice(0, 250)}
+              {content.slice(0, 150)}...
             </p>
           </div>
         </div>
