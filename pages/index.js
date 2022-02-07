@@ -1,6 +1,7 @@
 import PostList from "../Components/postList/PostList";
+import Categories from "../Components/Sidebar/Categories";
 import SideBar from "../Components/Sidebar/SideBar";
-import Social from "../Components/Sidebar/Social";
+
 import prisma from "../lib/prisma";
 export default function Home({ posts }) {
   const resultData = JSON.parse(posts);
@@ -13,7 +14,7 @@ export default function Home({ posts }) {
 
       <div className="font-montserrat relative flex flex-col w-1/3 gap-3 ">
         <SideBar postTitles={resultData} />
-        <Social />
+        <Categories postCategories={resultData} />
       </div>
     </div>
   );

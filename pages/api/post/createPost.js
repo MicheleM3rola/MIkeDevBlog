@@ -12,7 +12,12 @@ export default async function handle(req, res) {
       content: content,
       image: image,
       category: {
-        create: { name: category },
+        connectOrCreate: {
+          create: { name: category },
+          where: {
+            name: category,
+          },
+        },
       },
     },
   });
