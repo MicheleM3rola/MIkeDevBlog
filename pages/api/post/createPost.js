@@ -13,10 +13,10 @@ export default async function handle(req, res) {
       image: image,
       category: {
         connectOrCreate: {
-          create: { name: category },
           where: {
             name: category,
           },
+          create: { name: category },
         },
       },
     },

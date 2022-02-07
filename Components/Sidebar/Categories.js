@@ -1,6 +1,10 @@
 import React from "react";
 import Link from "next/link";
 
+const getUnique = (items, value) => {
+  return [...new Set(items.map((item) => item[value]))];
+};
+
 const Categories = ({ postCategories }) => {
   return (
     <div className=" flex flex-col py-4 items-start justify-start z-10 relative border border-black-600  rounded-lg text-white">

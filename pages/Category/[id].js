@@ -2,9 +2,9 @@ import React from "react";
 import prisma from "../../lib/prisma";
 import { UserHOC } from "../../Components/User/User";
 
-const Category = (postsPerCategory) => {
+const Category = ({ singleCategory }) => {
   // component to read the actual post by id
-  console.log(postsPerCategory);
+  console.log(singleCategory);
 
   return <div className="flex flex-col   xl:w-9/12 mx-auto"></div>;
 };
@@ -20,11 +20,17 @@ export const getServerSideProps = async ({ params }) => {
         },
       },
     },
+    include: {
+      category: {
+        select: {
+          name: true,
+        },
+      },
+    },
   });
-  const postsPerCategory = JSON.stringify(singleCategory);
 
   return {
-    props: { postsPerCategory },
+    props: { singleCategory },
   };
 };
 
