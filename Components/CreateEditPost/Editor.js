@@ -105,7 +105,7 @@ const Editor = ({
         });
     }, 2000);
   };
-  console.log(image);
+
   return (
     <div className="w-full max-w-screen-lg mx-auto">
       <textarea
@@ -125,13 +125,19 @@ const Editor = ({
         className="w-full text-xl text-white font-bold leading-snug bg-transparent outline-none appearance-none resize-none disabled:cursor-not-allowed "
       />
       <div className=" flex flex-row justify-start content-center">
-        <input
-          type="file"
-          accept="image/png, image/jpeg,image/jpg"
-          onChange={handleUpload}
-        />
-        <div className="h-24">
-          <img src={image} className="h-full" alt="test" />
+        <label className=" w-20 h-20 border border-solid border-slate-300 rounded-full leading-8 font-bold text-3xl text-white flex justify-center items-center">
+          <input
+            type="file"
+            accept="image/png, image/jpeg,image/jpg"
+            onChange={handleUpload}
+            className="h-0 w-0 opacity-0 "
+          />
+          <span className="h-full w-full flex justify-center items-center">
+            +
+          </span>
+        </label>
+        <div className="h-24 ml-7 flex justify-center items-center">
+          <img src={image} className="h-full w-full" alt="test" />
         </div>
       </div>
 

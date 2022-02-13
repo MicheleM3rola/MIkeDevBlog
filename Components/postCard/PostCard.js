@@ -1,11 +1,12 @@
 import React from "react";
 import Link from "next/link";
 import axios from "axios";
+
 import { useRouter } from "next/router";
 import { UserHOC } from "../User/User";
 import { SignedIn } from "@clerk/nextjs";
 
-const PostCard = ({ title, content, date, id }) => {
+const PostCard = ({ title, content, date, id, image }) => {
   const router = useRouter();
 
   const deleteBtn = async (id) => {
@@ -27,16 +28,19 @@ const PostCard = ({ title, content, date, id }) => {
         <div className="flex flex-row flex-wrap flex-grow-0">
           <div className="flex-auto w-full pr-0 xl:w-auto xl:flex-1 xl:pr-5">
             <Link href={`/Post/${id}`}>
-              <a className="mb-1 text-3xl font-semibold leading-tight tracking-tight text-brand-black dark:text-brand-grey-100">
+              <a className="mb-1 text-2xl font-semibold leading-tight tracking-tight text-brand-black dark:text-brand-grey-100">
                 {title}
               </a>
             </Link>
-            <p className="mb-2 text-xs font-medium text-brand-grey-600 dark:text-brand-grey-400">
+            <p className="mb-2 mt-2 text-xs font-medium text-brand-grey-600 dark:text-brand-grey-400">
               {date}
             </p>
-            <p className="max-w-full min-w-full mb-2 text-lg leading-snug tracking-tight break-words text-brand-grey-700 dark:text-brand-grey-400">
-              {content.slice(0, 150)}...
+            <p className="max-w-full min-w-full mb-2 text-base leading-snug tracking-tight break-words  ">
+              {content.slice(0, 90)}...
             </p>
+          </div>
+          <div className="h-48 w-72 flex justify-center">
+            <img src={image} alt="image Post" className="w-full h-full" />
           </div>
         </div>
         <SignedIn>

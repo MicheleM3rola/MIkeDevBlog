@@ -9,7 +9,7 @@ const SideBar = ({ postTitles }) => {
         {postTitles.map(({ title, id, category }) => {
           return (
             <Link href={`/Post/${id}`} key={id}>
-              <a className="text-lg">
+              <a className="text-sm">
                 {title}
                 <span className="text-xs ml-2 border border-dilate-green rounded-lg p-1 ">
                   {category.name}

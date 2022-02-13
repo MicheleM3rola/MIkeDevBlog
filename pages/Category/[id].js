@@ -16,12 +16,13 @@ const Category = ({ singleCategory }) => {
       </div>
 
       <div className="flex flex-col w-6/12 mx-auto">
-        {singleCategory.map(({ title, content, id, createdAt }) => {
+        {singleCategory.map(({ title, content, id, createdAt, image }) => {
           const datePost = dateFormat(createdAt, "mmmm dS, yyyy");
           return (
             <PostCard
               title={title}
               content={content}
+              image={image}
               key={id}
               date={datePost}
               id={id}
