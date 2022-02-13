@@ -190,11 +190,11 @@ const Editor = ({
         </div>
       </div>
       {/** Post Content */}
-      <div className="px-4 py-12">
+      <div className="px-4 py-12 overflow-y-hidden">
         {activeTab === 0 ? (
           <textarea
             value={content}
-            rows="20"
+            rows="16"
             onChange={(e) => setContent(e.target.value)}
             placeholder="Tell your story..."
             disabled={disabled}

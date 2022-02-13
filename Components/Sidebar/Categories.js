@@ -6,16 +6,21 @@ const getUnique = (items, value) => {
 };
 
 const Categories = ({ postCategories }) => {
+  let categories = [
+    ...new Set(postCategories.flatMap(({ category }) => category)),
+  ].sort();
+  let uniqueCategories = getUnique(categories, "name");
+
   return (
     <div className=" flex flex-col py-4 items-start justify-start z-10 relative border border-black-600  rounded-lg text-white">
       <h1 className=" text-2xl font-bold p-3">Categories</h1>
       <div className="px-3 text-2xl flex flex-row">
-        {postCategories.map(({ id, category }) => {
+        {uniqueCategories.map((categoryName, id) => {
           return (
-            <Link href={`/Category/${category.name}`} key={id}>
+            <Link href={`/Category/${categoryName}`} key={id}>
               <a className="text-lg">
                 <span className="text-sm ml-2 border border-red-600 rounded-lg p-1 ">
-                  {category.name}
+                  {categoryName}
                 </span>
               </a>
             </Link>
