@@ -38,6 +38,7 @@ const Editor = ({
   const [content, setContent] = useState(initialData?.content ?? "");
   const [category, setCategory] = useState(initialData?.category?.name ?? "");
   const [image, setImage] = useState(initialData?.image ?? "");
+  const [awsFileName, setAwsFileName] = useState("");
   const [activeTab, setActiveTab] = useState(0);
 
   const [debouncedTitle] = useDebounce(title, debounceDelay);
@@ -89,7 +90,7 @@ const Editor = ({
       .catch((error) => {
         console.log(error);
       });
-
+    setAwsFileName(fileName);
     setTimeout(async () => {
       await axios
         .post("/api/awsImageUrl/postImage", {
@@ -104,6 +105,15 @@ const Editor = ({
           console.log(error);
         });
     }, 2000);
+  };
+
+  const handleDeleteImage = async (fileName) => {
+    try {
+      await axios.delete(`/api/awsdeleteimage/${fileName}`);
+      setImage("");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -139,6 +149,14 @@ const Editor = ({
         <div className="h-24 ml-7 flex justify-center items-center">
           <img src={image} className="h-full w-full" alt="test" />
         </div>
+        <button
+          className="text-black bg-gray-300"
+          onClick={() => {
+            handleDeleteImage(awsFileName);
+          }}
+        >
+          Delete Image
+        </button>
       </div>
 
       <div className="mt-6 flex justify-center sm:justify-between items-center px-4 py-2 space-x-6 rounded bg-gray-100 border border-gray-300 text-gray-700 sticky top-0 ">

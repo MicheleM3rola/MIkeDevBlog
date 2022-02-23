@@ -23,7 +23,7 @@ function Layout({ children }) {
         <Nav />
       </div>
 
-      <main className="flex flex-col   bg-dilate-color  place-content-between">
+      <main className="flex flex-col   bg-dilate-color  place-content-between h-screen">
         {children}
         <Footer />
       </main>

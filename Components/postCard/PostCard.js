@@ -8,11 +8,13 @@ import { SignedIn } from "@clerk/nextjs";
 
 const PostCard = ({ title, content, date, id, image }) => {
   const router = useRouter();
+  const awsId = image.slice(65, 70);
 
-  const deleteBtn = async (id) => {
+  const deleteBtn = async (id, aws) => {
     if (window.confirm("Do you really want to delete this post?")) {
       try {
         await axios.delete(`/api/deletePost/${id}`);
+        await axios.delete(`/api/awsdeleteimage/${aws}`);
         router.push("/");
       } catch (error) {
         console.log(error);
@@ -51,7 +53,7 @@ const PostCard = ({ title, content, date, id, image }) => {
               </Link>
               <button
                 onClick={() => {
-                  deleteBtn(id);
+                  deleteBtn(id, awsId);
                 }}
               >
                 Delete
