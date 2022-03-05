@@ -23,6 +23,7 @@ const tabs = [
 ];
 
 const Editor = ({
+  awsId = null,
   initialData = null,
   showDeleteButton = false,
   showPublishButton = false,
@@ -38,7 +39,7 @@ const Editor = ({
   const [content, setContent] = useState(initialData?.content ?? "");
   const [category, setCategory] = useState(initialData?.category?.name ?? "");
   const [image, setImage] = useState(initialData?.image ?? "");
-  const [awsFileName, setAwsFileName] = useState("");
+  const [awsFileName, setAwsFileName] = useState(awsId ?? "");
   const [activeTab, setActiveTab] = useState(0);
 
   const [debouncedTitle] = useDebounce(title, debounceDelay);
@@ -115,7 +116,7 @@ const Editor = ({
       console.log(error);
     }
   };
-
+  console.log(image);
   return (
     <div className="w-full max-w-screen-lg mx-auto">
       <textarea
@@ -135,28 +136,32 @@ const Editor = ({
         className="w-full text-xl text-white font-bold leading-snug bg-transparent outline-none appearance-none resize-none disabled:cursor-not-allowed "
       />
       <div className=" flex flex-row justify-start content-center">
-        <label className=" w-20 h-20 border border-solid border-slate-300 rounded-full leading-8 font-bold text-3xl text-white flex justify-center items-center">
+        <label className=" cursor-pointer w-20 h-20 border border-solid border-slate-300 rounded-full leading-8 font-bold text-3xl text-white flex justify-center items-center hover:border-dilate-green">
           <input
             type="file"
             accept="image/png, image/jpeg,image/jpg"
             onChange={handleUpload}
-            className="h-0 w-0 opacity-0 "
+            className="h-0 w-0 opacity-0 cursor-pointer"
           />
-          <span className="h-full w-full flex justify-center items-center">
+          <span className="h-full w-full flex justify-center items-center hover:text-dilate-green">
             +
           </span>
         </label>
-        <div className="h-24 ml-7 flex justify-center items-center">
-          <img src={image} className="h-full w-full" alt="test" />
+        <div className="h-24 ml-7 flex justify-center items-center relative ">
+          {image ? (
+            <>
+              <img src={image} className="h-full w-full" alt="test" />
+              <button
+                className="text-black bg-gray-300 w-4 h-4 flex justify-center items-center font-bold rounded-xl p-3 absolute top-0 right-0"
+                onClick={() => {
+                  handleDeleteImage(awsFileName);
+                }}
+              >
+                X
+              </button>
+            </>
+          ) : null}
         </div>
-        <button
-          className="text-black bg-gray-300"
-          onClick={() => {
-            handleDeleteImage(awsFileName);
-          }}
-        >
-          Delete Image
-        </button>
       </div>
 
       <div className="mt-6 flex justify-center sm:justify-between items-center px-4 py-2 space-x-6 rounded bg-gray-100 border border-gray-300 text-gray-700 sticky top-0 ">

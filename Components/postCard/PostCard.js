@@ -8,7 +8,7 @@ import { SignedIn } from "@clerk/nextjs";
 
 const PostCard = ({ title, content, date, id, image }) => {
   const router = useRouter();
-  const awsId = image.slice(65, 70);
+  let awsIdInCard = image.split("/")[3];
 
   const deleteBtn = async (id, aws) => {
     if (window.confirm("Do you really want to delete this post?")) {
@@ -53,7 +53,7 @@ const PostCard = ({ title, content, date, id, image }) => {
               </Link>
               <button
                 onClick={() => {
-                  deleteBtn(id, awsId);
+                  deleteBtn(id, awsIdInCard);
                 }}
               >
                 Delete
