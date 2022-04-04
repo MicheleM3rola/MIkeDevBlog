@@ -1,13 +1,15 @@
 import React from "react";
 import prisma from "../../lib/prisma";
+import PostCard from "../../Components/postCard/PostCard";
+import dateFormat from "dateformat";
 import { UserHOC } from "../../Components/User/User";
 
-const Post = (singlePost) => {
+const Post = ({ singlePost, posts }) => {
   // component to read the actual post by id
 
   return (
     <div className="flex flex-col   xl:w-9/12 mx-auto">
-      <div className="w-full flex flex-col items-center">
+      <section className="w-full flex flex-col items-center">
         <div className=" h-96 w-3/5 object-cover aspect-square">
           <img
             src={singlePost.image}
@@ -28,7 +30,30 @@ const Post = (singlePost) => {
         <div className="w-3/5 mt-10 mb-10 flex flex-row justify-start">
           <UserHOC />
         </div>
-      </div>
+      </section>
+      <section className="w-full flex flex-col items-center">
+        <h1 className="text-6xl text-white mt-9">
+          More {singlePost.category.name} posts
+        </h1>
+        <div className="w-3/5 flex flex-row justify-center items-center mt-12">
+          {posts.map(({ category, content, createdAt, image, title, id }) => {
+            const datePost = dateFormat(createdAt, "mmmm dS, yyyy");
+            return (
+              <div key={id}>
+                {category.name === singlePost.category.name ? (
+                  <PostCard
+                    title={title}
+                    content={content}
+                    image={image}
+                    date={datePost}
+                    id={id}
+                  />
+                ) : null}
+              </div>
+            );
+          })}
+        </div>
+      </section>
     </div>
   );
 };
@@ -49,9 +74,17 @@ export const getServerSideProps = async ({ params }) => {
       },
     },
   });
+  const data = await prisma.post.findMany({
+    include: {
+      category: {
+        select: {
+          name: true,
+        },
+      },
+    },
+  });
+
   return {
-    props: singlePost,
+    props: { singlePost: singlePost, posts: data },
   };
 };
-
-// trying commmit

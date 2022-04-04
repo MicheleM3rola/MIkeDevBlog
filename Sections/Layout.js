@@ -5,7 +5,7 @@ import Footer from "./Footer";
 
 function Layout({ children }) {
   return (
-    <div className=" bg-dilate-color flex flex-col ">
+    <div className=" bg-dilate-color flex flex-col">
       <Head>
         <title>Michele Dev Blog</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
@@ -23,7 +23,7 @@ function Layout({ children }) {
         <Nav />
       </div>
 
-      <main className="flex flex-col   bg-dilate-color  place-content-between h-screen">
+      <main className="flex flex-col   bg-dilate-color  place-content-between">
         {children}
         <Footer />
       </main>
